@@ -20,21 +20,15 @@ for patient in sorted(src_dir.glob('*')):
         continue
 
     if len(list(patient.glob('*.nii.gz'))) == 0:
-           continue
+        continue
 
-    if i == 100:
-        break
-
-    i += 1
-
-    print(i, patient.name)
-
-    scan_file = next(patient.glob('*_t2w.mha'))
-    out_file = img_dir / f'lesions_{i:03}_0000.nii.gz'
-    image = sitk.ReadImage(scan_file)
-    sitk.WriteImage(image, out_file)
+    # if i == 100:
+    #     break
 
     seg_files = list(sorted((patient.glob('*nii.gz'))))
+    if len(seg_files) == 1:
+        continue
+
     img = nibabel.load(seg_files[1])
     data = np.asarray(img.dataobj)
     data[data > 0] = 1
@@ -43,6 +37,23 @@ for patient in sorted(src_dir.glob('*')):
     data2 = np.asarray(img.dataobj)
     data[data2 > 0] = 2
 
+    seg_shape = np.array(data.shape)
+
+    scan_file = next(patient.glob('*_t2w.mha'))
+    image = sitk.ReadImage(scan_file)
+
+    img_shape = np.array(image.GetSize())
+
+    if not np.all(seg_shape == img_shape):
+        continue
+
+    i += 1
+    print(i, patient.name)
+
     img = nibabel.Nifti1Image(data, img.affine)
     out_file = label_dir / f'lesions_{i:03}.nii.gz'
     nibabel.save(img, out_file)
+
+    out_file = img_dir / f'lesions_{i:03}_0000.nii.gz'
+    sitk.WriteImage(image, out_file)
+
