@@ -15,10 +15,12 @@ stage 2: crop t2, dwi, adc, prostaat binair, zones to carcinoma
     - CE + Focal
 
 TODO:
+
 Data:
 - Semi-automatic annotations
 - external data: prostate158
 - zonal annotations
+- 
 Processing:
 - loss functions
 - channels
