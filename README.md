@@ -10,6 +10,7 @@
 
 stage 1: t2, dwi, adc to prostaat binair, zones
     - CE + Dice
+    
 stage 2: crop t2, dwi, adc, prostaat binair, zones to carcinoma
     - CE + Focal
 
