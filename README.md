@@ -1,3 +1,43 @@
+- ROI segmentation as extra supervision but as union with single class
+- Transformer in encoder
+- Pretrain
+- Focal loss for carcinoma, smooth dice for prostate
+- Geef voorspelde prostaat mee als input channel
+- Crop rond prostaat met padding 10mm
+- Other modalities
+- 2d on axial slices
+
+
+stage 1: t2, dwi, adc to prostaat binair, zones
+    - CE + Dice
+stage 2: crop t2, dwi, adc, prostaat binair, zones to carcinoma
+    - CE + Focal
+
+TODO:
+Data:
+- Semi-automatic annotations
+- external data: prostate158
+- zonal annotations
+Processing:
+- loss functions
+- channels
+- Snellius
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # PI-CAI: Baseline nnU-Net (supervised)
 
 ## Managed By
